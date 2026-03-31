@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CineVote — Pick Your Top 3</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ADMIN PANEL -->
+  <div id="admin-panel" class="panel active">
+    <header class="site-header">
+      <div class="logo">🎬 <span>CineVote</span></div>
+      <p class="tagline">Add movies, then let your audience pick their top 3</p>
+    </header>
+
+    <section class="add-movie-section">
+      <h2>Add a Movie</h2>
+      <div class="input-row">
+        <input type="text" id="movie-title" placeholder="Movie title…" maxlength="80" />
+        <input type="text" id="movie-year" placeholder="Year" maxlength="4" style="width:90px" />
+        <button id="add-btn" onclick="addMovie()">+ Add</button>
+      </div>
+      <p class="hint">Press Enter or click Add. Duplicates are ignored.</p>
+    </section>
+
+    <section class="movie-list-section">
+      <h2>Movie List <span id="count-badge" class="badge">0</span></h2>
+      <ul id="movie-list"></ul>
+      <p id="empty-msg" class="empty-msg">No movies yet — add some above!</p>
+    </section>
+
+    <div class="action-bar">
+      <button class="btn-primary" onclick="openVoting()" id="start-vote-btn" disabled>
+        Open Voting →
+      </button>
+      <button class="btn-ghost" onclick="openResults()">
+        View Results
+      </button>
+    </div>
+  </div>
+
+  <!-- VOTING PANEL -->
+  <div id="voting-panel" class="panel">
+    <header class="site-header">
+      <div class="logo">🎬 <span>CineVote</span></div>
+      <p class="tagline">Choose your <strong>top 3</strong> — ranked by preference</p>
+    </header>
+
+    <div class="voter-name-row">
+      <input type="text" id="voter-name" placeholder="Your name (optional)…" maxlength="40" />
+    </div>
+
+    <p class="selection-status" id="selection-status">Select 3 movies (0 / 3)</p>
+
+    <ul id="voting-list" class="voting-list"></ul>
+
+    <div class="action-bar">
+      <button class="btn-primary" id="submit-vote-btn" onclick="submitVote()" disabled>
+        Submit Vote
+      </button>
+      <button class="btn-ghost" onclick="showPanel('admin-panel')">← Back</button>
+    </div>
+  </div>
+
+  <!-- RESULTS PANEL -->
+  <div id="results-panel" class="panel">
+    <header class="site-header">
+      <div class="logo">🎬 <span>CineVote</span></div>
+      <p class="tagline">Results</p>
+    </header>
+
+    <div class="results-meta" id="results-meta"></div>
+    <ol id="results-list" class="results-list"></ol>
+
+    <div class="votes-log-section">
+      <h3>Individual Votes</h3>
+      <div id="votes-log"></div>
+    </div>
+
+    <div class="action-bar">
+      <button class="btn-primary" onclick="openVoting()">Cast Another Vote</button>
+      <button class="btn-ghost" onclick="showPanel('admin-panel')">← Admin</button>
+      <button class="btn-danger" onclick="resetAll()">Reset All</button>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
